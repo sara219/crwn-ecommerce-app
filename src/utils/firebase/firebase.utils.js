@@ -10,6 +10,9 @@ import {
   GoogleAuthProvider,
 } from 'firebase/auth'
 
+// TODO: Add SDKs for create User Document
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
+
 // web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyAM5xt-GSFnImE1ZqXMSBM7VjWaoUEpWh8',
@@ -33,3 +36,12 @@ provider.setCustomParameters({
 
 export const auth = getAuth()
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
+
+export const db = getFirestore()
+
+// function to check if theres existing doc for the user auth, if its not create one
+export const createUserDocFromAuth = async (userAuth) => {
+  const userDocRef = doc(db, 'usersData', userAuth.uid)
+  //  the arguments ==> db -> database. usersData -> collection. userAuth -> user identifier
+  console.log(userDocRef)
+}
