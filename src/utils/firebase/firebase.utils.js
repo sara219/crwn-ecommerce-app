@@ -28,14 +28,15 @@ const firebaseApp = initializeApp(firebaseConfig)
 
 // Initialize Provider using Google auth
 // ==> GoogleAuthProvider is class that we get from Firebase Authentication and this is connected to Google auth itself., we may need diff implementation
-const provider = new GoogleAuthProvider()
+const googleProvider = new GoogleAuthProvider()
 // how Google auth should behave! => every time somebody interacts with the provider,always force them to select an account.
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
   prompt: 'select_account',
 })
 
 export const auth = getAuth()
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider)
 
 export const db = getFirestore()
 // ===============
