@@ -12,21 +12,52 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
 
+  console.log(formFields)
+  
+  const handelChange = (event) => {
+    const { name, value } = event.target
+    setFormFields({ ...formFields, [name]: value })
+  }
+
   return (
     <>
       <h1>Sign up with your email and password</h1>
       <form onSubmit={() => {}}>
         <label>Display Name</label>
-        <input type='text' required />
+        <input
+          type='text'
+          required
+          name='displayName'
+          value={displayName}
+          onChange={handelChange}
+        />
 
         <label>Email</label>
-        <input type='email' required />
+        <input
+          type='email'
+          required
+          name='email'
+          value={email}
+          onChange={handelChange}
+        />
 
         <label>Password</label>
-        <input type='password' required />
+        <input
+          type='password'
+          required
+          name='password'
+          value={password}
+          onChange={handelChange}
+        />
 
         <label>Confirm Password</label>
-        <input type='password' required />
+        <input
+          type='password'
+          required
+          name='confirmPassword'
+          value={confirmPassword}
+          onChange={handelChange}
+        />
 
         <button type='submit'>Submit</button>
       </form>
