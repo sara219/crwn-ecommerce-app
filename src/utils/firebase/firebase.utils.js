@@ -38,15 +38,43 @@ export const auth = getAuth()
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
 
 export const db = getFirestore()
+// ===============
 
 // function to check if theres existing doc for the user auth, if its not create one
 export const createUserDocFromAuth = async (userAuth) => {
   const userDocRef = doc(db, 'usersData', userAuth.uid)
   //  the arguments ==> db -> database. usersData -> collection. userAuth -> user identifier
   console.log(userDocRef)
-
   //   snapshot => data (specific kind of object.)
   const userSnapshot = await getDoc(userDocRef)
-  console.log(1111, userSnapshot)
-  console.log(222, userSnapshot.exists())
+  console.log(userSnapshot.exists())
+
+  //? pseudo code =>
+  // ** if user data exist
+  // => return userDocRef
+  // ** if user data not exist
+  // => create/ set the document with data from userAuth in userData collection
+
+  if (!userSnapshot.exists()) {
+    const { displayName, email } = userAuth
+    const createDate = new Date() // when the user create account
+
+    try {
+      await setDoc(userDocRef, {
+        displayName,
+        email,
+        createDate,
+      })
+    } catch (error) {
+      console.log('error creating the user', error.message)
+    }
+  }
+  return userDocRef
+
+  // **** snapshot of the data collection in firebase ****
+  /*  
+  createDate: November 29, 2022 at 6:40:55 PM UTC+2
+  displayName: "Sara J"
+  email: "sara97abuawwad@gmail.com" 
+  */
 }
