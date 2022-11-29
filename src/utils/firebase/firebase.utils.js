@@ -44,4 +44,9 @@ export const createUserDocFromAuth = async (userAuth) => {
   const userDocRef = doc(db, 'usersData', userAuth.uid)
   //  the arguments ==> db -> database. usersData -> collection. userAuth -> user identifier
   console.log(userDocRef)
+
+  //   snapshot => data (specific kind of object.)
+  const userSnapshot = await getDoc(userDocRef)
+  console.log(1111, userSnapshot)
+  console.log(222, userSnapshot.exists())
 }
