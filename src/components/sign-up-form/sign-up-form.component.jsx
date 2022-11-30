@@ -94,7 +94,7 @@ const SignUp = () => {
           onChange={handelChange}
         />
 
-        <Button>Submit</Button>
+        <Button>Sign Up</Button>
       </form>
     </div>
   )
