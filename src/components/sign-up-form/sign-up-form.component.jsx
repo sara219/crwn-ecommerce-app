@@ -1,6 +1,6 @@
 // useState => allows you to have state variables in functional components
 import { useState } from 'react'
-
+import FormInput from '../form-input/form-input.component'
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
@@ -52,8 +52,8 @@ const SignUp = () => {
     <>
       <h1>Sign up with your email and password</h1>
       <form onSubmit={handelSubmit}>
-        <label>Display Name</label>
-        <input
+        <FormInput
+          label='Display Name'
           type='text'
           required
           name='displayName'
@@ -61,8 +61,8 @@ const SignUp = () => {
           onChange={handelChange}
         />
 
-        <label>Email</label>
-        <input
+        <FormInput
+          label='Email'
           type='email'
           required
           name='email'
@@ -70,8 +70,8 @@ const SignUp = () => {
           onChange={handelChange}
         />
 
-        <label>Password</label>
-        <input
+        <FormInput
+          label='Password'
           type='password'
           required
           name='password'
@@ -79,8 +79,8 @@ const SignUp = () => {
           onChange={handelChange}
         />
 
-        <label>Confirm Password</label>
-        <input
+        <FormInput
+          label='Confirm Password'
           type='password'
           required
           name='confirmPassword'
