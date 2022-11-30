@@ -1,6 +1,7 @@
 // useState => allows you to have state variables in functional components
 import { useState } from 'react'
 
+import { createAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils'
 const defaultFormFields = {
   displayName: '',
   email: '',
@@ -13,7 +14,11 @@ const SignUp = () => {
   const { displayName, email, password, confirmPassword } = formFields
 
   console.log(formFields)
-  
+
+  const handelSubmit = async (event) => {
+    event.preventDefault()
+  }
+
   const handelChange = (event) => {
     const { name, value } = event.target
     setFormFields({ ...formFields, [name]: value })
