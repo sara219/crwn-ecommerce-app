@@ -1,10 +1,14 @@
 // useState => allows you to have state variables in functional components
 import { useState } from 'react'
+import './sign-up-form.styles.scss'
 import FormInput from '../form-input/form-input.component'
+
+// import methods form firebase.utils
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from '../../utils/firebase/firebase.utils'
+
 const defaultFormFields = {
   displayName: '',
   email: '',
@@ -49,8 +53,9 @@ const SignUp = () => {
   }
 
   return (
-    <>
-      <h1>Sign up with your email and password</h1>
+    <div className='sign-up-container'>
+      <h2>Don't have an account ?</h2>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handelSubmit}>
         <FormInput
           label='Display Name'
@@ -90,7 +95,7 @@ const SignUp = () => {
 
         <button type='submit'>Submit</button>
       </form>
-    </>
+    </div>
   )
 }
 
