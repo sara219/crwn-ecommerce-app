@@ -6,8 +6,9 @@ import Button from '../button/button.component'
 
 // import methods form firebase.utils
 import {
-  createAuthUserWithEmailAndPassword,
+  signInWithGooglePopup,
   createUserDocFromAuth,
+  signIneAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils'
 
 const defaultFormFields = {
@@ -23,11 +24,22 @@ const SignIn = () => {
     setFormFields(defaultFormFields)
   }
 
+  const signInWithGoogle = async () => {
+    const { user } = await signInWithGooglePopup()
+    await createUserDocFromAuth(user)
+  }
 
   const handelSubmit = async (event) => {
     event.preventDefault()
     try {
-    } catch (error) {}
+      const response = await signIneAuthUserWithEmailAndPassword(
+        email,
+        password
+      )
+      console.log(response);
+    } catch (error) {
+      console.log(error, 'no account');
+    }
   }
 
   const handelChange = (event) => {
@@ -58,7 +70,12 @@ const SignIn = () => {
           onChange={handelChange}
         />
 
-        <Button>Sign In</Button>
+        <div className='buttons-container'>
+          <Button type='submit'>Sign In</Button>
+          <Button buttonType='google' onClick={signInWithGoogle}>
+            Google Sign In
+          </Button>
+        </div>
       </form>
     </div>
   )
