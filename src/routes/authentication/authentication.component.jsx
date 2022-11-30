@@ -8,9 +8,9 @@ import {
   // signInWithGoogleRedirect,
 } from '../../utils/firebase/firebase.utils'
 
-import Authentication from '../../components/sign-up-form/sign-up-form.component'
+import SignUp from '../../components/sign-up-form/sign-up-form.component'
 
-const SignIn = () => {
+const Authentication = () => {
   // useEffect(() => {
   //   const getResult = async () => {
   //     const response = await getRedirectResult(auth)
