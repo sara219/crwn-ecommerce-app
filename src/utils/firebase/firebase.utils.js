@@ -43,9 +43,9 @@ export const db = getFirestore()
 // ===============
 
 // function to check if theres existing doc for the user auth, if its not create one
-export const createUserDocFromAuth = async (userAuth) => {
+export const createUserDocFromAuth = async (userAuth, additionalInfo = {}) => {
   if (!userAuth) return
-  
+
   const userDocRef = doc(db, 'usersData', userAuth.uid)
   //  the arguments ==> db -> database. usersData -> collection. userAuth -> user identifier
   console.log(userDocRef)
@@ -68,6 +68,7 @@ export const createUserDocFromAuth = async (userAuth) => {
         displayName,
         email,
         createDate,
+        ...additionalInfo,
       })
     } catch (error) {
       console.log('error creating the user', error.message)

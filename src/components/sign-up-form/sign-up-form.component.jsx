@@ -1,7 +1,10 @@
 // useState => allows you to have state variables in functional components
 import { useState } from 'react'
 
-import { createAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils'
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocFromAuth,
+} from '../../utils/firebase/firebase.utils'
 const defaultFormFields = {
   displayName: '',
   email: '',
@@ -13,7 +16,6 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
 
-
   const handelSubmit = async (event) => {
     event.preventDefault()
 
@@ -21,13 +23,18 @@ const SignUp = () => {
       alert('password do not match!!')
       return
     }
-// call the firebase server 
+    // call the firebase server
     try {
-      // call the create email and pass method 
-      const response = await createAuthUserWithEmailAndPassword(email, password)
-      console.log(response)
+      // call the create email and pass method
+      const { user } = await createAuthUserWithEmailAndPassword(email, password)
+
+      await createUserDocFromAuth(user, { displayName })
     } catch (error) {
-      console.log(error)
+      if (error.code === 'auth/email-already-in-use') {
+        alert('Email Already In Use')
+      } else {
+        console.log(error)
+      }
     }
   }
 
