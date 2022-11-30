@@ -1,15 +1,11 @@
 // useEffect => perform side effects in your components
 // import { useEffect } from 'react'
 // import { getRedirectResult } from 'firebase/auth'
-import {
-  // auth,
-  signInWithGooglePopup,
-  createUserDocFromAuth,
-  // signInWithGoogleRedirect,
-} from '../../utils/firebase/firebase.utils'
 
 import SignUp from '../../components/sign-up-form/sign-up-form.component'
 import SignIn from '../../components/sign-in-form copy/sign-in-form.component'
+
+import './authentication.styles.scss'
 
 const Authentication = () => {
   // useEffect(() => {
@@ -25,8 +21,7 @@ const Authentication = () => {
 
 
   return (
-    <div>
-      <h1>SignIn Page</h1>
+    <div className='authentication-container'>
       <SignIn />
       <SignUp />
       {/* <button onClick={signInWithGoogleRedirect}>
