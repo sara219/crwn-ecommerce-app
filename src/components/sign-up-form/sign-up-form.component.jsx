@@ -13,10 +13,22 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
 
-  console.log(formFields)
 
   const handelSubmit = async (event) => {
     event.preventDefault()
+
+    if (password !== confirmPassword) {
+      alert('password do not match!!')
+      return
+    }
+// call the firebase server 
+    try {
+      // call the create email and pass method 
+      const response = await createAuthUserWithEmailAndPassword(email, password)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handelChange = (event) => {
@@ -27,7 +39,7 @@ const SignUp = () => {
   return (
     <>
       <h1>Sign up with your email and password</h1>
-      <form onSubmit={() => {}}>
+      <form onSubmit={handelSubmit}>
         <label>Display Name</label>
         <input
           type='text'
