@@ -36,9 +36,18 @@ const SignIn = () => {
         email,
         password
       )
-      console.log(response);
+      resetFormFields()
     } catch (error) {
-      console.log(error, 'no account');
+      switch (error.code) {
+        case 'auth/wrong-password':
+          alert('incorrect password')
+          break
+        case 'auth/user-not-found':
+          alert('no user associated with this email')
+          break
+        default:
+          console.log(error)
+      }
     }
   }
 
@@ -51,7 +60,7 @@ const SignIn = () => {
     <div className='sign-up-container'>
       <h2>Already have an account?!</h2>
       <span>Sign in with your email and password</span>
-      <form>
+      <form onSubmit={handelSubmit}>
         <FormInput
           label='Email'
           type='email'
@@ -71,8 +80,10 @@ const SignIn = () => {
         />
 
         <div className='buttons-container'>
-          <Button type='submit'>Sign In</Button>
-          <Button buttonType='google' onClick={signInWithGoogle}>
+          <Button type='submit' on>
+            Sign In
+          </Button>
+          <Button type='button' buttonType='google' onClick={signInWithGoogle}>
             Google Sign In
           </Button>
         </div>
