@@ -1,8 +1,9 @@
 // useState => allows you to have state variables in functional components
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import './sign-in-form.styles.scss'
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
+import { UserContext } from '../../context/user.context'
 
 // import methods form firebase.utils
 import {
@@ -20,6 +21,8 @@ const SignIn = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
+  const { setCurrentUser } = useContext(UserContext)
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
   }
@@ -32,10 +35,11 @@ const SignIn = () => {
   const handelSubmit = async (event) => {
     event.preventDefault()
     try {
-      const response = await signIneAuthUserWithEmailAndPassword(
+      const {user} = await signIneAuthUserWithEmailAndPassword(
         email,
         password
       )
+      setCurrentUser(user)
       resetFormFields()
     } catch (error) {
       switch (error.code) {
