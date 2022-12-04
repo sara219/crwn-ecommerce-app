@@ -23,6 +23,8 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
 
+  const { setCurrentUser } = useContext(UserContext)
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
   }
@@ -38,6 +40,7 @@ const SignUp = () => {
     try {
       // call the create email and pass method
       const { user } = await createAuthUserWithEmailAndPassword(email, password)
+      setCurrentUser(user)
       // create the auth user doc inside firebase db
       await createUserDocFromAuth(user, { displayName })
       resetFormFields()
