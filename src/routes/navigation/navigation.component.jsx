@@ -6,7 +6,7 @@ import { UserContext } from '../../context/user.context'
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext)
-  console.log(11111111,currentUser);
+  // console.log(11111111,currentUser);
   return (
     <Fragment>
       <div className='navigation'>

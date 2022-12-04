@@ -1,5 +1,5 @@
 // useState => allows you to have state variables in functional components
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import './sign-up-form.styles.scss'
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
@@ -9,6 +9,8 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from '../../utils/firebase/firebase.utils'
+
+import { UserContext } from '../../context/user.context'
 
 const defaultFormFields = {
   displayName: '',
