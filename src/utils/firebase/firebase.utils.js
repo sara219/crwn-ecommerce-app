@@ -106,4 +106,4 @@ export const signIneAuthUserWithEmailAndPassword = async (email, password) => {
 
 //!! ================= SignOut
 
-export const singOutUser = () => signOut(auth)
+export const signOutUser = async () => await signOut(auth)
