@@ -4,6 +4,7 @@ import './navigation.styles.scss'
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
 
 import Cart from '../../components/cart/cart.component'
+import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component'
 
 import { UserContext } from '../../context/user.context'
 import { signOutUser } from '../../utils/firebase/firebase.utils'
@@ -32,6 +33,7 @@ const Navigation = () => {
           )}
           <Cart />
         </div>
+        <CartDropdown />
       </div>
       <Outlet />
     </Fragment>
