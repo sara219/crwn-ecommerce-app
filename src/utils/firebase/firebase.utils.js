@@ -9,7 +9,8 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  onAuthStateChanged,
 } from 'firebase/auth'
 
 // TODO: Add SDKs for create User Document
@@ -44,7 +45,7 @@ export const signInWithGoogleRedirect = () =>
 export const db = getFirestore()
 // ===============
 
-// TODO: Interface Layers
+// TODO: Interface Layers [Helper Functions]
 
 //!! =================  function to check if theres existing doc for the user auth, if its not create one
 
@@ -89,7 +90,7 @@ export const createUserDocFromAuth = async (userAuth, additionalInfo = {}) => {
   */
 }
 
-//!! ================= create account using email and password 
+//!! ================= create account using email and password
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return
@@ -103,7 +104,11 @@ export const signIneAuthUserWithEmailAndPassword = async (email, password) => {
   return signInWithEmailAndPassword(auth, email, password)
 }
 
-
 //!! ================= SignOut
 
 export const signOutUser = async () => await signOut(auth)
+
+//!! ================= auth state change (observer listener)
+
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback)
