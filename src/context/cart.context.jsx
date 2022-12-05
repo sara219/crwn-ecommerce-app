@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, useState } from 'react'
 
 export const CartContext = createContext({
   isCartOpen: false,
@@ -6,5 +6,8 @@ export const CartContext = createContext({
 })
 
 export const CartProvider = ({ children }) => {
-  return <CartContext.Provider>{children}</CartContext.Provider>
+  const [isCartOpen, setIsCartOpen] = useState
+  const value = { isCartOpen, setIsCartOpen }
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
