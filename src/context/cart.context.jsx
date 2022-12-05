@@ -1,10 +1,21 @@
 import { createContext, useState } from 'react'
 
-// Helper Function::
+// TODO: Helper Function::
 const addCartItem = (cartItem, productToAdd) => {
-  // find if cartItem contains product To add
-  // if found, increment quantity
-  // return new array with modified cartItem / new cart item
+  //find if cartItem contains product To add
+  const existingCartItem = cartItem.find(
+    (cartItem) => cartItem.id === productToAdd.id
+  )
+  //if found, increment quantity
+  if (existingCartItem) {
+    return cartItem.map((cartItem) =>
+      cartItem.id === productToAdd.id
+        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+        : cartItem
+    )
+  }
+  //return new array with modified cartItem / new cart item
+  return [...cartItem, { ...productToAdd, quantity: 1 }]
 }
 
 export const CartContext = createContext({
@@ -14,25 +25,6 @@ export const CartContext = createContext({
   addItemToCart: () => {},
 })
 
-/* 
-Product
-{
-    id,
-    name,
-    price,
-    imageUrl
-}
-
-Cart Item 
-{
-    id,
-    name,
-    price,
-    imageUrl,
-    quantity
-}
-*/
-
 export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [cartItems, setCartItems] = useState([])
@@ -41,7 +33,7 @@ export const CartProvider = ({ children }) => {
     setCartItems(addCartItem(cartItems, productToAdd))
   }
 
-  const value = { isCartOpen, setIsCartOpen }
+  const value = { isCartOpen, setIsCartOpen, addItemToCart, cartItems }
   //   console.log(isCartOpen,1111);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
