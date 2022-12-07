@@ -1,27 +1,28 @@
 import { createContext, useState, useEffect } from 'react'
 
 // TODO: Helper Function::
-const addCartItem = (cartItem, productToAdd) => {
+const addCartItem = (cartItems, productToAdd) => {
   //find if cartItem contains product To add
-  const existingCartItem = cartItem.find(
+  const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === productToAdd.id
   )
   //if found, increment quantity
   if (existingCartItem) {
-    return cartItem.map((cartItem) =>
+    return cartItems.map((cartItem) =>
       cartItem.id === productToAdd.id
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
         : cartItem
     )
   }
   //return new array with modified cartItem / new cart item
-  return [...cartItem, { ...productToAdd, quantity: 1 }]
+  // console.log(cartItem,111111);
+  return [...cartItems, { ...productToAdd, quantity: 1 }]
 }
 
 export const CartContext = createContext({
   isCartOpen: false,
   setIsCartOpen: () => {},
-  cartItem: [],
+  cartItems: [],
   addItemToCart: () => {},
   cartCount: 0,
 })
@@ -49,6 +50,7 @@ export const CartProvider = ({ children }) => {
     cartItems,
     cartCount,
   }
+
   //   console.log(isCartOpen,1111);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
