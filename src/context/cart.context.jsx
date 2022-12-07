@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 
-// TODO: Helper Function::
+// TODO: Helper Function:: To add Item to Cart
 const addCartItem = (cartItems, productToAdd) => {
   //find if cartItem contains product To add
   const existingCartItem = cartItems.find(
@@ -19,11 +19,33 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }]
 }
 
+// TODO: Helper Function:: To remove Item from cart
+
+const removeCartItem = (cartItems, cartItemToRemove) => {
+  // find the cart item to remove
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === cartItemToRemove.id
+  )
+
+  // check of the quantity is equal to 1, if its remove the item from the cart
+  if (existingCartItem.quantity === 1) {
+    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id)
+  }
+
+  // if not! return back cartItem with the matching cart item with reduce quantity!
+  return cartItems.map((cartItem) =>
+    cartItem.id === cartItemToRemove.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  )
+}
+
 export const CartContext = createContext({
   isCartOpen: false,
   setIsCartOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  removeItemFromCart: () => {},
   cartCount: 0,
 })
 
@@ -34,19 +56,28 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     const newCartCount = cartItems.reduce(
-      (total, cartItem) => total + cartItem.quantity,0
+      (total, cartItem) => total + cartItem.quantity,
+      0
     )
     setCartCount(newCartCount)
   }, [cartItems])
 
+  // add item handler:
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd))
   }
+
+  // remove item handler:
+  const removeItemFromCart = (cartItemToRemove) => {
+    setCartItems(removeCartItem(cartItems, cartItemToRemove))
+  }
+
 
   const value = {
     isCartOpen,
     setIsCartOpen,
     addItemToCart,
+    removeItemFromCart,
     cartItems,
     cartCount,
   }
