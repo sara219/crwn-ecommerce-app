@@ -21,6 +21,8 @@ import {
   setDoc,
   collection,
   writeBatch,
+  query,
+  getDocs,
 } from 'firebase/firestore'
 
 // web app's Firebase configuration
@@ -70,6 +72,25 @@ export const addCollectionAndDoc = async (collectionKey, objectsToAdd) => {
 
   await batch.commit()
   console.log('DONE')
+}
+
+//!! =================  Get Products + Categories From Firestore
+
+export const getCategoriesAndDoc = async () => {
+  const collectionRef = collection(db, 'categories')
+  const queryCollection = query(collectionRef)
+
+
+  // get docs to fetch snapshots the we want: 
+  const querySnapShot = await getDocs(queryCollection)
+  // querySnapShot.docs => give an array with all of the docs | 
+  // console.log(querySnapShot.docs,4444444);
+  const categoryMap = querySnapShot.docs.reduce((accumulator, docSnapShot) => {
+    const { title, items } = docSnapShot.data()
+    accumulator[title.toLowerCase()] = items
+    return accumulator
+  }, {})
+  return categoryMap
 }
 
 //!! =================  function to check if theres existing doc for the user auth, if its not create one
