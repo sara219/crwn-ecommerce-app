@@ -14,7 +14,14 @@ import {
 } from 'firebase/auth'
 
 // TODO: Add SDKs for create User Document
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+} from 'firebase/firestore'
 
 // web app's Firebase configuration
 const firebaseConfig = {
@@ -43,9 +50,16 @@ export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider)
 
 export const db = getFirestore()
+
+
 // ===============
 
 // TODO: Interface Layers [Helper Functions]
+
+
+export const addCollectionAndDoc = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionKey)
+}
 
 //!! =================  function to check if theres existing doc for the user auth, if its not create one
 
