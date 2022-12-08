@@ -59,6 +59,7 @@ export const db = getFirestore()
 
 export const addCollectionAndDoc = async (collectionKey, objectsToAdd) => {
   const collectionRef = collection(db, collectionKey)
+  // using Batch
 }
 
 //!! =================  function to check if theres existing doc for the user auth, if its not create one
