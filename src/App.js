@@ -10,8 +10,8 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />} />
-        {/* index if its tue its match the parent component */}
-        <Route path='shop' element={<Shop />} />
+        {/* index if its true its match the parent component */}
+        <Route path='shop/*' element={<Shop />} />
         <Route path='auth' element={<Authentication />} />
         <Route path='checkout' element={<Checkout />} />
       </Route>
