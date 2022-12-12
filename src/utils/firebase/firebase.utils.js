@@ -57,42 +57,6 @@ export const db = getFirestore()
 
 // TODO: Interface Layers [Helper Functions]
 
-//!! =================  function to create a collection on firebase of object the held the data with diff categories
-
-export const addCollectionAndDoc = async (collectionKey, objectsToAdd) => {
-  const collectionRef = collection(db, collectionKey)
-
-  // * using Batch to add all of the object to collection with successful transaction
-  const batch = writeBatch(db)
-
-  objectsToAdd.forEach((object) => {
-    const docRef = doc(collectionRef, object.title.toLowerCase())
-    batch.set(docRef, object)
-  })
-
-  await batch.commit()
-  console.log('DONE')
-}
-
-//!! =================  Get Products + Categories From Firestore
-
-export const getCategoriesAndDoc = async () => {
-  const collectionRef = collection(db, 'categories')
-  const queryCollection = query(collectionRef)
-
-
-  // get docs to fetch snapshots the we want: 
-  const querySnapShot = await getDocs(queryCollection)
-  // querySnapShot.docs => give an array with all of the docs | 
-  // console.log(querySnapShot.docs,4444444);
-  const categoryMap = querySnapShot.docs.reduce((accumulator, docSnapShot) => {
-    const { title, items } = docSnapShot.data()
-    accumulator[title.toLowerCase()] = items
-    return accumulator
-  }, {})
-  return categoryMap
-}
-
 //!! =================  function to check if theres existing doc for the user auth, if its not create one
 
 export const createUserDocFromAuth = async (userAuth, additionalInfo = {}) => {
@@ -158,3 +122,38 @@ export const signOutUser = async () => await signOut(auth)
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback)
+
+//!! =================  function to create a collection on firebase of object the held the data with diff categories
+
+export const addCollectionAndDoc = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionKey)
+
+  // * using Batch to add all of the object to collection with successful transaction
+  const batch = writeBatch(db)
+
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase())
+    batch.set(docRef, object)
+  })
+
+  await batch.commit()
+  console.log('DONE')
+}
+
+//!! =================  Get Products + Categories From Firestore
+
+export const getCategoriesAndDoc = async () => {
+  const collectionRef = collection(db, 'categories')
+  const queryCollection = query(collectionRef)
+
+  // get docs to fetch snapshots the we want:
+  const querySnapShot = await getDocs(queryCollection)
+  // querySnapShot.docs => give an array with all of the docs |
+  // console.log(querySnapShot.docs,4444444);
+  const categoryMap = querySnapShot.docs.reduce((accumulator, docSnapShot) => {
+    const { title, items } = docSnapShot.data()
+    accumulator[title.toLowerCase()] = items
+    return accumulator
+  }, {})
+  return categoryMap
+}
