@@ -64,10 +64,8 @@ export const createUserDocFromAuth = async (userAuth, additionalInfo = {}) => {
 
   const userDocRef = doc(db, 'usersData', userAuth.uid)
   //  the arguments ==> db -> database. usersData -> collection. userAuth -> user identifier
-  console.log(userDocRef)
   //   snapshot => data (specific kind of object.)
   const userSnapshot = await getDoc(userDocRef)
-  console.log(userSnapshot.exists())
 
   //? pseudo code =>
   // ** if user data exist
@@ -149,7 +147,8 @@ export const getCategoriesAndDoc = async () => {
   // get docs to fetch snapshots the we want:
   const querySnapShot = await getDocs(queryCollection)
   // querySnapShot.docs => give an array with all of the docs |
-  // console.log(querySnapShot.docs,4444444);
+  // console.log(querySnapShot.docs);
+  // reducing over [querySnapShot.docs] in order to finally end up with an object [categoryMap]
   const categoryMap = querySnapShot.docs.reduce((accumulator, docSnapShot) => {
     const { title, items } = docSnapShot.data()
     accumulator[title.toLowerCase()] = items
