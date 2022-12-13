@@ -6,8 +6,7 @@ import {
   ImageContainer,
   RemoveButton,
   Arrow,
-  ItemName,
-  ItemPrice,
+  BaseSpan,
   ItemQuantity,
   ItemValueQuantity,
 } from './checkout-item.styles'
@@ -26,13 +25,13 @@ const CheckoutItem = ({ cartItem }) => {
       <ImageContainer>
         <img src={imageUrl} alt={`${imageUrl}`} />
       </ImageContainer>
-      <ItemName>{name}</ItemName>
+      <BaseSpan>{name}</BaseSpan>
       <ItemQuantity>
         <Arrow onClick={addItemHandler}>&#10094;</Arrow>
         <ItemValueQuantity>{quantity}</ItemValueQuantity>
         <Arrow onClick={removeItemHandler}>&#10095;</Arrow>
       </ItemQuantity>
-      <ItemPrice>{price}</ItemPrice>
+      <BaseSpan>{price}</BaseSpan>
       <RemoveButton onClick={ClearItemHandler}>&#10005;</RemoveButton>
     </CheckoutItemContainer>
   )

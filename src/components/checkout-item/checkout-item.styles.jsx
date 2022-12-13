@@ -20,11 +20,7 @@ export const ImageContainer = styled.div`
   }
 `
 
-export const ItemName = styled.span`
-  width: 23%;
-`
-
-export const ItemPrice = styled.span`
+export const BaseSpan = styled.span`
   width: 23%;
 `
 
