@@ -5,7 +5,7 @@
 import SignUp from '../../components/sign-up-form/sign-up-form.component'
 import SignIn from '../../components/sign-in-form copy/sign-in-form.component'
 
-import './authentication.styles.scss'
+import { AuthenticationContainer } from './authentication.styles'
 
 const Authentication = () => {
   // useEffect(() => {
@@ -19,15 +19,14 @@ const Authentication = () => {
   //   getResult()
   // }, [])
 
-
   return (
-    <div className='authentication-container'>
+    <AuthenticationContainer>
       <SignIn />
       <SignUp />
       {/* <button onClick={signInWithGoogleRedirect}>
         Sign in with Google Redirect
       </button> */}
-    </div>
+    </AuthenticationContainer>
   )
 }
 
