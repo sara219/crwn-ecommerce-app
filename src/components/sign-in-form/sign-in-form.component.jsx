@@ -1,8 +1,9 @@
 // useState => allows you to have state variables in functional components
 import { useState } from 'react'
-import './sign-in-form.styles.scss'
 import FormInput from '../form-input/form-input.component'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component'
+
+import { SignInForm, ButtonContainer } from './sign-in-form.styles'
 
 // import methods form firebase.utils
 import {
@@ -57,7 +58,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className='sign-up-container'>
+    <SignInForm>
       <h2>Already have an account?!</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handelSubmit}>
@@ -79,16 +80,20 @@ const SignIn = () => {
           onChange={handelChange}
         />
 
-        <div className='buttons-container'>
+        <ButtonContainer>
           <Button type='submit' on>
             Sign In
           </Button>
-          <Button type='button' buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>
+          <Button
+            type='button'
+            buttonType={BUTTON_TYPE_CLASSES.google}
+            onClick={signInWithGoogle}
+          >
             Google Sign In
           </Button>
-        </div>
+        </ButtonContainer>
       </form>
-    </div>
+    </SignInForm>
   )
 }
 
