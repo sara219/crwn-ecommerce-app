@@ -8,7 +8,7 @@ import { SignInForm, ButtonContainer } from './sign-in-form.styles'
 // import methods form firebase.utils
 import {
   signInWithGooglePopup,
-  createUserDocFromAuth,
+  // createUserDocFromAuth,
   signIneAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils'
 
